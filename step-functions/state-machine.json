@@ -1,0 +1,38 @@
+{
+  "Comment": "Workflow que consome a API de Star Wars e valida a relevância do personagem",
+  "StartAt": "BuscarPersonagemSWAPI",
+  "States": {
+    "BuscarPersonagemSWAPI": {
+      "Type": "Task",
+      "Resource": "ARN_DA_SUA_LAMBDA_AQUI",
+      "Next": "VerificarFilmes"
+    },
+    "VerificarFilmes": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.films_count",
+          "NumericGreaterThan": 3,
+          "Next": "PersonagemPrincipal"
+        }
+      ],
+      "Default": "PersonagemCoadjuvante"
+    },
+    "PersonagemPrincipal": {
+      "Type": "Pass",
+      "Result": {
+        "mensagem": "Este personagem é uma figura central na saga Star Wars!"
+      },
+      "ResultPath": "$.resultado_analise",
+      "End": true
+    },
+    "PersonagemCoadjuvante": {
+      "Type": "Pass",
+      "Result": {
+        "mensagem": "Este personagem teve participações pontuais ou menores na saga."
+      },
+      "ResultPath": "$.resultado_analise",
+      "End": true
+    }
+  }
+}
