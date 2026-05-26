@@ -63,6 +63,7 @@ Inicie uma execução passando o ID do personagem desejado no payload de entrada
 {
   "character_id": 1
 }
+```
 
 Experimente os IDs para ver o Step Functions alternar os caminhos visualmente no console da AWS!
 
